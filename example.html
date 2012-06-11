@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no,initial-scale=1.0">
+    <link rel="stylesheet" href="lib/infinite-scroll.css">
+    <style>
+      section {
+        display: inline-block;
+      }
+
+      #demo1 {
+        height: 400px;
+        width: 300px;
+        margin-right: 20px;
+        background-color: yellow;
+      }
+
+      #demo2 {
+        height: 500px;
+        width: 200px;
+        background-color: red;
+      }
+
+      ol {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+      li {
+        height: 100px;
+        line-height: 100px;
+        vertical-align: middle;
+        width: 100%;
+        border-bottom: 1px solid #000;
+      }
+    </style>
+  </head>
+
+  <body>
+    <section id="demo1">
+      <ol>
+        <li>Record 1</li>
+        <li>Record 2</li>
+        <li>Record 3</li>
+        <li>Record 4</li>
+        <li>Record 5</li>
+        <li>Record 6</li>
+      </ol>
+    </section>
+
+    <section id="demo2">
+      <ol>
+        <li>Record 1</li>
+        <li>Record 2</li>
+        <li>Record 3</li>
+        <li>Record 4</li>
+        <li>Record 5</li>
+        <li>Record 6</li>
+        <li>Record 7</li>
+        <li>Record 8</li>
+      </ol>
+    </section>
+
+    <script src="lib/infinite-scroll.js"></script>
+
+    <script>
+      var olElem1 = document.querySelector('#demo1 ol');
+
+      InfiniteScroll.create ({
+        element: '#demo1',
+        callback: function load(done) {
+          setTimeout(function() {
+            var num = olElem1.getElementsByTagName('li').length + 1;
+            for(var i = 0; i < 6; i++) {
+              var li = document.createElement('li');
+              li.textContent = 'Record ' + num++;
+              olElem1.appendChild(li);
+            }
+            done((num >= 60) ? true : false);
+          }, 500);
+        }
+      });
+
+      var olElem2 = document.querySelector('#demo2 ol');
+
+      InfiniteScroll.create ({
+        element: '#demo2',
+        spinner: false,
+        callback: function load(done) {
+          setTimeout(function() {
+            var num = olElem2.getElementsByTagName('li').length + 1;
+            for(var i = 0; i < 8; i++) {
+              var li = document.createElement('li');
+              li.textContent = 'Record ' + num++;
+              olElem2.appendChild(li);
+            }
+            done((num >= 160) ? true : false);
+          }, 200);
+        }
+      });
+    </script>
+  </body>
+</html>
